@@ -1,0 +1,35 @@
+from datetime import datetime
+
+
+class Bank:
+    def __init__(self):
+        self.balance = 0
+        while True:
+            print("\n1. Deposit\n2. Withdraw\n3. Inquiry\n4. Exit")
+            choice = input("Select an option: ")
+
+            if choice == "1":
+                amount = float(input("Enter amount to be Deposited: "))
+                self.balance += amount
+                print(f" Current balance: ${self.balance} ({datetime.now()})")
+
+            elif choice == "2":
+                amount = float(input("Enter amount to be Withdrawn: "))
+                if self.balance >= amount:
+                    self.balance -= amount
+                    print("\n You Withdrew:", amount)
+                    print(f" Current balance: ${self.balance} ({datetime.now()})")
+                else:
+                    print("\n Insufficient balance  ")
+                    print(f" Current balance: ${self.balance} ({datetime.now()})")
+
+            elif choice == "3":
+                print("\n Balance=", self.balance)
+            elif choice == "4":
+                print("Exiting program.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+
+s = Bank()
