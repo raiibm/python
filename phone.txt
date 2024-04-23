@@ -1,0 +1,16 @@
+phone_book = {
+    '1': 'raghad',
+    '2': 'lolo',
+    '3': 'remma',
+}
+print("Enter the number: ")
+n = input()
+
+if not n.isdigit() or len(n) != 1:
+        print("This is invalid number")
+
+if n in phone_book:
+        print("Name:", phone_book[n])
+else:
+    print("Sorry, the number is not found")
+
