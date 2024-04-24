@@ -1,0 +1,69 @@
+from datetime import datetime
+
+
+def calculate_age(birth_date):
+    today = datetime.today()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
+
+
+def find_day_of_birth(birth_date):
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    day_index = birth_date.weekday()
+    return days[day_index]
+
+
+def process_people(people):
+    if len(people) == 0:
+        print("No people passed.")
+        return
+
+    oldest_person = None
+    youngest_person = None
+    oldest_age = -1000
+    youngest_age = 1000
+
+    for name, birth_date in people:
+        if birth_date > datetime.today():
+            print(f"Invalid date for {name}.")
+            continue
+
+        age = calculate_age(birth_date)
+        if age > oldest_age:
+            oldest_age = age
+            oldest_person = (name, age)
+        if age < youngest_age:
+            youngest_age = age
+            youngest_person = (name, age)
+
+        print(f"{name} is {age} years old and she/he was born on a {find_day_of_birth(birth_date)}.")
+
+    if len(people) > 1:
+        print(f"The oldest one is {oldest_person[0]} .")
+        print(f"The youngest one is {youngest_person[0]} .")
+    else:
+        print("There is no oldest or youngest person.")
+
+    print(f"Total people: {len(people)}")
+
+
+def main():
+    people = []
+    while True:
+        name = input("Enter person's name (or type 'done' to finish): ")
+        if name.lower() == "done":
+            break
+
+        birth_date_str = input("Enter birth date (YYYY-MM-DD): ")
+        try:
+            birth_date = datetime.strptime(birth_date_str, "%Y-%m-%d")
+            people.append((name, birth_date))
+        except ValueError:
+            print(f"Invalid date format for {name}. Please use YYYY-MM-DD format.")
+
+    process_people(people)
+
+
+if __name__ == "__main__":
+    main()
+
